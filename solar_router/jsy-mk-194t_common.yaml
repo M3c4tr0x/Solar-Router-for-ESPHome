@@ -155,7 +155,8 @@ sensor:
     address: 0x004E
     register_type: holding
     value_type: U_DWORD
-    bitmask: 0X00010000
+    accuracy_decimals: 0
+    bitmask: 0X01000000
     filters:
       - multiply: 1
     register_count: 1
@@ -171,7 +172,7 @@ sensor:
     register_type: holding
     value_type: U_DWORD
     accuracy_decimals: 0
-    bitmask: 0X01000000
+    bitmask: 0X00010000
     filters:
       - multiply: 1
     register_count: 1

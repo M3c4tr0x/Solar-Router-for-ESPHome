@@ -3,7 +3,8 @@
 # ----------------------------------------------------------------------------------------------------
 
 substitutions:
-  power_meter_activated_at_start: "1"
+  power_meter_activated_at_start: "0"
+  power_polarity: "1"   # mettre "-1" si le tore est à l'envers
   
 # Activate or not power meter
 globals:
@@ -39,17 +40,23 @@ script:
   - id: power_meter_source
     mode: single
     then:
-      - lambda: |-
-          // Retrieve the last value from the Modbus sensor
+      - lambda: |-          
           float value = id(AP_Ch2).state;
+          float direction = id(PD_Ch2).state;
 
-          // Check if the value is valid
           if (!isnan(value)) {
+            // Apply direction from meter
+            if (!isnan(direction) && direction == 1) {
+              value = -value;
+            }
+
+            // Apply user-defined polarity (CT orientation)
+            value *= ${power_polarity};
+
             id(real_power).publish_state(value);
           } else {
             id(real_power).publish_state(NAN);
           }
-
 
 time:
   - platform: sntp
