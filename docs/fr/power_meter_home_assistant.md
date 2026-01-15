@@ -14,6 +14,8 @@ packages:
         vars:
           main_power_sensor: "sensor.smart_meter_ts_100a_1_puissance_reelle"
           consumption_sensor: "sensor.solarnet_power_load_consumed"
+          power_sign: "1"   # mettre "-1" pour changer le signe de real_power
+
 ```
 
 Ce package doit connaître le capteur à utiliser pour obtenir l'énergie échangée avec le réseau et l'énergie consommé par la maison. Le capteur déchange d'énergie avec le réseau doit être défini par `main_power_sensor` et la capteur de consommation par `consumption_sensor` dans la section `substitutions` de votre configuration comme présenté dans l'exemple ci-dessus.
@@ -21,6 +23,8 @@ Ce package doit connaître le capteur à utiliser pour obtenir l'énergie échan
 * `main_power_sensor` représent l'energie echangée avec le réseau. Il est attendu que ce capteur soit en Watts (W), qu'il soit positif (>0) lorsque l'électricité est consommée depuis le réseau et négatif (<0) lorsque l'électricité est envoyée au réseau. 
 
 * `consumption_sensor` représente l'énergie consomée par votre maison. Cette imformation permet, par exemple, le calcul de l'énergie théorique reroutée.
+  
+* `power_sign` permet de changer le signe de real_power, évite de créer une variable spécifiquement pour ça si la variable actuelle est inversée
 
 !!! warning "Disponibilité des données et fréquence de rafraîchissement"
     Ce compteur électrique s'appuie sur Home Assistant pour recueillir la valeur de l'énergie échangée avec le réseau. Il dépend également de la fréquence de mise à jour des capteurs. Si un capteur est mis à jour trop lentement, la régulation peut ne pas fonctionner comme prévu.

@@ -63,8 +63,11 @@ packages:
 
       # en mode automatique, mesure de puissance échangé avec le réseau via JSY-MK-194T
       - path: solar_router/power_meter_jsy-mk-194t.yaml
+        vars:          
+          power_sign: "1"   # mettre "-1" pour changer le signe de real_power
 ```
-
+la variable `power_sign` est optionnelle, elle permet de changer le signe de real_power, évite de créer une variable spécifiquement pour ça si pa pince de mesure de courant est à l'envers
+  
 ## 3 - Mode Hybride
 Ce mode permet l'utilisation du JSY-MK-194T pour mesurer l'énergie dans la charge uniquement. La mesure au niveau du réseau doit se faire via Home Assistant, à l'aide d'un capteur virtuel qui remonte une puissance d'injection estimée.
 Il est utile dans les systèmes où il n'y a pas d'injection réelle dans le réseau, ou si la mesure n'est pas accessible car trop éloignée.
@@ -94,6 +97,7 @@ packages:
         vars:
           main_power_sensor: sensor.puissance_soutiree_reseau_simulee_prevision_filtree_2
           consumption_sensor: sensor.inverter_activepower_load_sys
+          power_sign: "1"   # mettre "-1" pour changer le signe de real_power
 ```
 Ce package doit connaître le capteur à utiliser pour obtenir l'énergie échangée avec le réseau et l'énergie consommée par la maison.
 Le capteur d'échange d'énergie avec le réseau doit être défini par `main_power_sensor` et le capteur de consommation par `consumption_sensor` dans la section substitutions de votre configuration, comme présenté dans l'exemple ci-dessus.
@@ -101,6 +105,8 @@ Le capteur d'échange d'énergie avec le réseau doit être défini par `main_po
 * `main_power_sensor` représente l'énergie échangée avec le réseau. Il est attendu que ce capteur soit en watts (W), qu'il soit positif (>0) lorsque l'électricité est consommée depuis le réseau et négatif (<0) lorsque l'électricité est envoyée au réseau. 
 
 * `consumption_sensor` représente l'énergie consommée par votre maison. Cette information permet, par exemple, le calcul de l'énergie théorique reroutée.
+  
+* `power_sign` (optionnel) permet de changer le signe de real_power, évite de créer une variable spécifiquement pour ça si la variable actuelle est inversée dans home assistant
 
 !!! Warning – Disponibilité des données et fréquence de rafraîchissement
 Ce compteur électrique s'appuie sur Home Assistant pour recueillir la valeur de l'énergie échangée avec le réseau. Il dépend également de la fréquence de mise à jour des capteurs. Si un capteur est mis à jour trop lentement, la régulation peut ne pas fonctionner comme prévu.
