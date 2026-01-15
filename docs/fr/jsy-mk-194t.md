@@ -1,6 +1,7 @@
 # Détails sur l'utilisation d'un capteur de puissance JSY-MK-194T
 
 Deux configurations sont possibles lors de l'utilisation de ce capteur :
+
   - standalone : on utilise les deux capteurs du JSY-MK-194T (Ch1 : capteur sur la charge, Ch2 : capteur de puissance de la maison au niveau du compteur EDF)
   - hybride (exemple : Home Assistant pour la mesure real_power + JSY-MK-194T pour l’énergie dérivée) → utile si le routeur est loin du point de mesure, ou si le contrat est en 0 injection (il faudra créer dans HA un capteur virtuel de simulation d’injection en estimant l’énergie potentielle non produite, cf. par exemple le projet https://github.com/M3c4tr0x/ESP-PowerSunSensor)
 
