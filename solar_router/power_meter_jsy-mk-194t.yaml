@@ -1,36 +1,7 @@
+<<: !include power_meter_common.yaml
 # ----------------------------------------------------------------------------------------------------
 # User interaction
 # ----------------------------------------------------------------------------------------------------
-
-substitutions:
-  power_meter_activated_at_start: "1"
-  
-# Activate or not power meter
-globals:
-    - id: power_meter_activated
-      type: int
-      initial_value: ${power_meter_activated_at_start}
-      restore_value: True
-
-
-sensor:  
-  # Sensor showing the actual power exchange
-  - id: real_power
-    platform: template
-    name: "Real Power"
-    device_class: "power"
-    unit_of_measurement: "W"
-    update_interval: 1s
-    
-  # Sensor showing the actual power consumption
-  - id: consumption
-    platform: template
-    name: "Consumption"
-    device_class: "power"
-    unit_of_measurement: "W"
-    update_interval: 1s
-    internal: true
-    
     
 # Script updating the actual power exchange
 script:
@@ -39,17 +10,23 @@ script:
   - id: power_meter_source
     mode: single
     then:
-      - lambda: |-
-          // Retrieve the last value from the Modbus sensor
+      - lambda: |-          
           float value = id(AP_Ch2).state;
+          float direction = id(PD_Ch2).state;
 
-          // Check if the value is valid
           if (!isnan(value)) {
+            // Apply direction from meter
+            if (!isnan(direction) && direction == 1) {
+              value = -value;
+            }
+
+            // Apply user-defined polarity (CT orientation)
+            value *= ${power_sign};
+
             id(real_power).publish_state(value);
           } else {
             id(real_power).publish_state(NAN);
           }
-
 
 time:
   - platform: sntp
