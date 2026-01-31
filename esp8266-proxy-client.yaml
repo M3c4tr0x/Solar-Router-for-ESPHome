@@ -3,8 +3,8 @@
 # ----------------------------------------------------------------------------------------------------
 
 esphome:
-  name: "esp8266"
-  friendly_name: ESP8266
+  name: esp8266-2
+  friendly_name: ESP8266-2
   min_version: 2025.3.2
 
 esp8266:
@@ -34,9 +34,6 @@ wifi:
 # ----------------------------------------------------------------------------------------------------
 # Customisation
 # ----------------------------------------------------------------------------------------------------
-
-# This part of the script is designed to be use for customisation. It shouldn't be necessary to
-# edit other part of the script to perform configuration.
 packages:
   solar_router:
     url: https://github.com/XavierBerger/Solar-Router-for-ESPHome/
