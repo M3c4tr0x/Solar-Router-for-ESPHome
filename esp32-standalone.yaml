@@ -1,7 +1,6 @@
 # ----------------------------------------------------------------------------------------------------
 # ESPHome configuration - This part depends on your hardware target
 # ----------------------------------------------------------------------------------------------------
-
 esphome:
   name: solarrouter-r
   friendly_name: SolarRouter
@@ -69,3 +68,9 @@ packages:
         vars:
           green_led_pin: GPIO19
           yellow_led_pin: GPIO18
+      - path: solar_router/scheduler_forced_run.yaml
+      #   vars:
+      #     scheduler_unique_id: "day"
+      # - path: solar_router/scheduler_forced_run.yaml
+      #   vars:
+      #     scheduler_unique_id: "night"
