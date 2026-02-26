@@ -1,6 +1,12 @@
-# Hybridation du Solar Router de Xavier Berger
+# Optimisation de l'autoconsommation grâce à **Solar-Router-for-ESPHome** et **Solar-Oprimiser**
 
-## 1 – Objectif : Mettre en place une gestion hybride du Solar Router
+## 1 – Crédit
+
+[@M3c4tr0x](https://github.com/M3c4tr0x)
+
+---
+
+## 2 – Objectif : Mettre en place une gestion hybride du Solar Router
 
 Par conception, le routeur solaire permet de piloter une charge afin de converger vers une **injection réseau nulle** en modulant dynamiquement sa puissance.
 
@@ -23,7 +29,7 @@ La solution présentée repose sur l’intégration  [**Solar Optimizer (SO)**](
 
 ---
 
-## 2 – Présentation de Solar Optimizer (SO)
+## 3 – Présentation de Solar Optimizer (SO)
 
 Solar Optimizer est une intégration Home Assistant qui agit comme le « chef d'orchestre »du pilotage des différents appareils qu'il
 gère.
@@ -42,7 +48,7 @@ Contrairement à un routeur classique, son objectif n’est pas d’atteindre l�
 
 ---
 
-## 3 – Pré-requis pour intégrer le Solar Router dans SO
+## 4 – Pré-requis pour intégrer le Solar Router dans SO
 
 ### Gestion ON / OFF
 
@@ -50,7 +56,7 @@ Le Solar Router ne possède pas de switch ON/OFF natif (uniquement AUTO/MANUAL).
 
 Or **SO** nécessite une entité ON/OFF.
 
-Il faut donc créer un **template switch basé sur un `input_boolean`**.
+Il faut donc créer un **template switch basé sur un `input_boolean`** comme décrit dans le chapitre 6.
 
 ---
 
@@ -59,13 +65,13 @@ Il faut donc créer un **template switch basé sur un `input_boolean`**.
 Deux possibilités :
 
 1. Piloter directement `router_level`
-2. Utiliser un **proxy de type number** (recommandé)
+2. Utiliser un **proxy de type number** (recommandé) comme décrit dans le chapitre 7
 
 La seconde méthode permet d’appliquer une table de correction pour compenser la non-linéarité réelle de la charge.
 
 ---
 
-## 4 – Configuration du Solar Router dans SO
+## 5 – Configuration du Solar Router dans SO
 
 ### Pas de puissance
 
@@ -114,7 +120,7 @@ La décision de forçage nocturne repose sur l’énergie stockée en fin de jou
 
 ---
 
-## 5 – Template Switch ON/OFF (`input_boolean`)
+## 6 – Template Switch ON/OFF (`input_boolean`)
 
 Comme le Solar Router ne gère pas ON/OFF directement :
 
@@ -149,7 +155,7 @@ metadata: {}
 
 ---
 
-## 6 – Proxy de réglage du point de fonctionnement
+## 7 – Proxy de réglage du point de fonctionnement
 
 ### Architecture
 
@@ -282,7 +288,7 @@ Récapitulatif visuel des informations principales :
 ![](../images/SO_architecture_overview.png)
 ---
 
-## 7 – Gestion hybride (AUTO / MANUEL)
+## 8 – Gestion hybride (AUTO / MANUEL)
 
 Une automatisation pilote :
 
@@ -344,7 +350,7 @@ mode: single
 
 ---
 
-## 8 – Conclusion
+## 9 – Conclusion
 
 Cette implémentation représente ma vision d’une gestion hybride efficace.
 
@@ -360,15 +366,9 @@ Dans mon cas, elle répond parfaitement à l’objectif initial :
 
 ---
 
-## 9 – Annexes
+## 10 – Annexes
 
 Réglages généraux **SO** + configuration chauffe-eau :
 
 ![SO general settings](../images/SO_general_settings.png)
 ![Water heater settings](../images/SO_water_heater_settings.png)
-
----
-
-## 10 – Crédit
-
-[@M3c4tr0x](https://github.com/M3c4tr0x)
